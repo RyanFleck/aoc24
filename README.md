@@ -1,4 +1,4 @@
-# aoc24
+# Advent of Code 2024 in Clojure!
 
 A Clojure library designed to ... well, that part is up to you.
 
