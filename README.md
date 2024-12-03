@@ -8,6 +8,15 @@ To use, add a `profiles.clj` file with the following data:
 {:dev {:env {:aoc-session "53616c7... "}}}
 ```
 
+You'll need to step through and execute (`C-x C-e`) most of the
+solutions step by step with a REPL.
+
+```clojure
+(comment
+  (= 2 (count-trues (map is-level-safe? (str->matrix sample)))) ; test case
+  (count-trues (map is-level-safe? (str->matrix input)))) ; correct!
+```
+
 ## Solutions
 
 1. [Day 1](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day1.clj)

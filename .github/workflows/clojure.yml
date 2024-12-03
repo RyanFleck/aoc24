@@ -38,15 +38,17 @@ jobs:
             ~/.gitlibs
             ~/.deps.clj
           # List all files containing dependencies:
-          key: cljdeps-${{ hashFiles('deps.edn') }}
+          # key: cljdeps-${{ hashFiles('deps.edn') }}
           # key: cljdeps-${{ hashFiles('deps.edn', 'bb.edn') }}
-          # key: cljdeps-${{ hashFiles('project.clj') }}
+          key: cljdeps-${{ hashFiles('project.clj') }}
           # key: cljdeps-${{ hashFiles('build.boot') }}
           restore-keys: cljdeps-
         
       - name: Get leiningen version
         run: lein -v
 
+      - name: Run unit test
+        run: lein deps
 
       - name: Run unit tests
         run: lein test

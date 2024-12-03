@@ -4,15 +4,11 @@
             [clojure.java.io :as io]
             [aoc24.common :as common]))
 
-(def input (common/get-input-data 2))
+(comment
+  (def input (common/get-input-data 2)))
 
-(def sample
-  "7 6 4 2 1
-1 2 7 8 9
-9 7 6 2 1
-1 3 2 4 5
-8 6 4 4 1
-1 3 6 7 9")
+;; These two functions turn the input into a nested array representing
+;; the input matrix.
 
 (defn str->intlist [^String string_line]
   (->> (s/split string_line #"\s+")
@@ -20,6 +16,10 @@
 
 (defn str->matrix [^String string_grid]
   (map str->intlist (s/split-lines string_grid)))
+
+;; These three functions provide the three plain ideas required to
+;; check if a single level of the matrix is 'safe' per the event
+;; rules.
 
 (defn levels-all-increasing? [int-list]
   (cond
@@ -41,18 +41,21 @@
     (levels-differ-by-1-to-3? (rest int-list))
     :else false))
 
+;; Here they are combined in a function to check each row for safety.
+
 (defn is-level-safe? [int-list]
   (and
    (or (levels-all-increasing? int-list) (levels-all-decreasing? int-list))
    (levels-differ-by-1-to-3? int-list)))
 
+;; A few ways to do this, but this is easy.
+
 (defn count-trues [bool-list]
   (get (frequencies bool-list) true 0))
 
-(= 2 (count-trues (map is-level-safe? (str->matrix sample))))
-
-;; Answer:
-(count-trues (map is-level-safe? (str->matrix input)))
+(comment
+  ;; Question 1 Answer:
+  (count-trues (map is-level-safe? (str->matrix input)))); correct!
 
 ;;; ======================================================================================
 ;;; Part Two
@@ -81,10 +84,12 @@
    ;; OR Try "Problem Dampener" from Q2
    (brute-force-retry int-list)))
 
-(= 4 (count-trues (map is-level-safe-v3? (str->matrix sample))))
+(comment
+  ;; Test with the sample data
+  (= 4 (count-trues (map is-level-safe-v3? (str->matrix sample))))
 
-;; Answer:
-(count-trues (map is-level-safe-v3? (str->matrix input)))
+  ;; Answer:
+  (count-trues (map is-level-safe-v3? (str->matrix input)))); correct!
 
 ;;; ... yep, this brute-force method is correct.
 
@@ -141,6 +146,5 @@
     (levels-differ-by-1-to-3? int-list))
    (remove-one-and-retry int-list)))
 
-(map remove-one-and-retry (str->matrix sample))
-
-;;; ======================================================================================
+(comment
+  (map remove-one-and-retry (str->matrix sample)))

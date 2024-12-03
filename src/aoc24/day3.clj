@@ -4,7 +4,9 @@
             [clojure.java.io :as io]
             [aoc24.common :as common]))
 
-(def input (common/get-input-data 3))
+(comment
+  ;; Fetch day 3's input data:
+  (def input (common/get-input-data 3)))
 
 (defn add [& rest]
   (apply + rest))
