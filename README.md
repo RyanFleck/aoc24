@@ -1,6 +1,7 @@
 # Advent of Code 2024
 
 [![Clojure CI](https://github.com/RyanFleck/aoc24/actions/workflows/clojure.yml/badge.svg)](https://github.com/RyanFleck/aoc24/actions/workflows/clojure.yml)
+[![codecov](https://codecov.io/github/RyanFleck/aoc24/graph/badge.svg?token=8FGtTTnD1b)](https://codecov.io/github/RyanFleck/aoc24)
 
 This year I am taking on the challenges in **Clojure**.
 
@@ -38,3 +39,9 @@ Public License, v. 2.0 are satisfied: GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or (at your
 option) any later version, with the GNU Classpath Exception which is available
 at https://www.gnu.org/software/classpath/license.html.
+
+## Code Coverage
+
+Unit tests aren't critical to this project, but visualizations are still cool:
+
+![Code Coverage Tree](https://codecov.io/github/RyanFleck/aoc24/graphs/tree.svg?token=8FGtTTnD1b)
