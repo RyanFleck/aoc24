@@ -53,3 +53,11 @@ jobs:
 
       - name: Run unit tests
         run: lein test
+
+      - name: Generate test coverage
+        run: lein cloverage --codecov
+        
+     - name: Upload coverage reports to Codecov
+       uses: codecov/codecov-action@v5
+       with:
+         token: ${{ secrets.CODECOV_TOKEN }}
