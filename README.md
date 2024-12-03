@@ -1,5 +1,7 @@
 # Advent of Code 2024
 
+[![Clojure CI](https://github.com/RyanFleck/aoc24/actions/workflows/clojure.yml/badge.svg)](https://github.com/RyanFleck/aoc24/actions/workflows/clojure.yml)
+
 This year I am taking on the challenges in **Clojure**.
 
 To use, add a `profiles.clj` file with the following data:

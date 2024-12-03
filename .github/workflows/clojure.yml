@@ -1,4 +1,5 @@
 name: Clojure CI
+# https://hackeryarn.com/post/clojure-actions/
 
 on: [push]
 
