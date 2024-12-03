@@ -8,6 +8,11 @@ To use, add a `profiles.clj` file with the following data:
 {:dev {:env {:aoc-session "53616c7... "}}}
 ```
 
+## Solutions
+
+1. [Day 1](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day1.clj)
+1. [Day 2](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day2.clj)
+
 ## License
 
 Copyright © 2024 Ryan Fleck
