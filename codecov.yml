@@ -1,10 +1,16 @@
 codecov:
   disable_default_path_fixes: no
   require_ci_to_pass: yes
-  coverage:
-    range: 40..100
-  github_checks:
-    annotations: false
   notify:
     after_n_builds: 2
     wait_for_ci: yes
+coverage:
+  round: down
+  range:
+    - 40.0
+    - 80.0
+  status:
+    changes: false
+github_checks:
+  annotations: false
+
