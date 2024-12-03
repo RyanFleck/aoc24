@@ -85,13 +85,12 @@
    (brute-force-retry int-list)))
 
 (comment
-  ;; Test with the sample data
-  (= 4 (count-trues (map is-level-safe-v3? (str->matrix sample))))
-
   ;; Answer:
   (count-trues (map is-level-safe-v3? (str->matrix input)))); correct!
 
-;;; ... yep, this brute-force method is correct.
+;;; ... yep, this brute-force method is correct. Now if only I were a
+;;; good programmer and could figure out how to do all of this in a
+;;; minute or two like the guys at the top of the leaderboard!
 
 ;;; ======================================================================================
 ;;; Part Two - Failures
@@ -145,6 +144,3 @@
     (or (levels-all-increasing? int-list) (levels-all-decreasing? int-list))
     (levels-differ-by-1-to-3? int-list))
    (remove-one-and-retry int-list)))
-
-(comment
-  (map remove-one-and-retry (str->matrix sample)))
