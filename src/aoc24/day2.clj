@@ -56,6 +56,46 @@
 ;; Answer:
 (count-trues (map is-level-safe? (str->matrix input)))
 
+;;; ======================================================================================
+;;; Part Two
+
+;; https://stackoverflow.com/questions/24553524/how-to-drop-the-nth-item-in-a-collection-in-clojure
+(defn drop-nth [n coll]
+  (concat (take n coll) (nthrest coll (inc n))))
+
+(defn brute-force-options [int-list]
+  (map #(drop-nth % int-list) (range (count int-list))))
+
+(defn brute-force-retry [int-list]
+  (let [options (brute-force-options int-list)]
+    (->
+     (map #(is-level-safe? %) options)
+     (.contains true))))
+
+(defn is-level-safe-v3? [int-list]
+  (or
+
+   ;; Either meet all initial requirements
+   (and
+    (or (levels-all-increasing? int-list) (levels-all-decreasing? int-list))
+    (levels-differ-by-1-to-3? int-list))
+
+   ;; OR Try "Problem Dampener" from Q2
+   (brute-force-retry int-list)))
+
+(= 4 (count-trues (map is-level-safe-v3? (str->matrix sample))))
+
+;; Answer:
+(count-trues (map is-level-safe-v3? (str->matrix input)))
+
+;;; ... yep, this brute-force method is correct.
+
+;;; ======================================================================================
+;;; Part Two - Failures
+
+;; I figured I could determine *which* indice made things failed to
+;; eliminate lots of retries. Perhaps this is still a good solution.
+
 (defn levels-all-increasing-v2? [int-list index]
   (cond
     (= (count int-list) 1) true
@@ -84,19 +124,19 @@
     (println int-list)
     (println {:increase  bad-increases :decrease bad-decreases :gap bad-gaps})
 
-;; https://stackoverflow.com/questions/24553524/how-to-drop-the-nth-item-in-a-collection-in-clojure
-    (defn drop-nth [n coll]
-      (concat (take n coll) (nthrest coll (inc n))))
-
     ;; TODO - Determine which entry to remove. Holy crap this is a tough problem. Outtatime!
     (let [bad-indice (->> (list bad-increases bad-decreases bad-gaps)
                           (filter int?)
                           (filter #(< 0 %)))]
+
+      (println (str "The bad indices may be " bad-indice))
       (cond 
         (and (or (true? bad-increases) (true? bad-decreases)) (int? bad-gaps))
         (do
           (print "There was a good increase or decrease, try to remove a gap.")
           (is-level-safe? (drop-nth bad-gaps int-list)))))))
+
+
 
 (defn is-level-safe-damped? [int-list]
   (or
@@ -107,7 +147,6 @@
 
 (map remove-one-and-retry (str->matrix sample))
 
-;; ((0 true true) (true 0 1) (0 true 2) (1 0 true) (0 2 2) (true 0 true))
 
-;; ((0) (0 1) (0 2) (1 0) (0 2) (0))
 
+;;; ======================================================================================
