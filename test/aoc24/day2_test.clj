@@ -8,7 +8,7 @@
   (testing "Default use case:"
     (is (= (str->intlist "1 2 3 4") '(1 2 3 4)))))
 
-(def matrix-in 
+(def matrix-in
   "1 2 3
 4 5 6
 7 8 9")

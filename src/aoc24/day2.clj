@@ -14,7 +14,6 @@
 8 6 4 4 1
 1 3 6 7 9")
 
-
 (defn str->intlist [^String string_line]
   (->> (s/split string_line #"\s+")
        (map #(Integer/parseInt %))))
@@ -44,12 +43,11 @@
 
 (defn is-level-safe? [int-list]
   (and
-   (or (levels-all-increasing? int-list) (levels-all-decreasing? int-list)) 
+   (or (levels-all-increasing? int-list) (levels-all-decreasing? int-list))
    (levels-differ-by-1-to-3? int-list)))
 
 (defn count-trues [bool-list]
   (get (frequencies bool-list) true 0))
-
 
 (= 2 (count-trues (map is-level-safe? (str->matrix sample))))
 
@@ -130,13 +128,11 @@
                           (filter #(< 0 %)))]
 
       (println (str "The bad indices may be " bad-indice))
-      (cond 
+      (cond
         (and (or (true? bad-increases) (true? bad-decreases)) (int? bad-gaps))
         (do
           (print "There was a good increase or decrease, try to remove a gap.")
           (is-level-safe? (drop-nth bad-gaps int-list)))))))
-
-
 
 (defn is-level-safe-damped? [int-list]
   (or
@@ -146,7 +142,5 @@
    (remove-one-and-retry int-list)))
 
 (map remove-one-and-retry (str->matrix sample))
-
-
 
 ;;; ======================================================================================

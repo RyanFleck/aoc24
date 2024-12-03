@@ -1,20 +1,16 @@
-# Advent of Code 2024 in Clojure!
+# Advent of Code 2024
 
-A Clojure library designed to ... well, that part is up to you.
+This year I am taking on the challenges in **Clojure**.
 
-Add a `profiles.clj` file with one line:
+To use, add a `profiles.clj` file with the following data:
 
 ```clojure
 {:dev {:env {:aoc-session "53616c7... "}}}
 ```
 
-## Usage
-
-FIXME
-
 ## License
 
-Copyright © 2024 FIXME
+Copyright © 2024 Ryan Fleck
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
