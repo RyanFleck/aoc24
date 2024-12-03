@@ -27,10 +27,11 @@
 (defn get-input-data
   "Returns the puzzle data for a given day, and downloads it if it doesn't exist."
   [^Integer day]
-  (let [filename (str "resources/day" day ".txt")]
+  (when (env :aoc-session)
+    (let [filename (str "resources/day" day ".txt")]
 
-    (when (not (.exists (io/file filename)))
-      (println "Data for day " day " does not exist, downloading...")
-      (download-puzzle-data day))
+      (when (not (.exists (io/file filename)))
+        (println "Data for day " day " does not exist, downloading...")
+        (download-puzzle-data day))
 
-    (slurp filename)))
+      (slurp filename))))
