@@ -5,16 +5,6 @@
 
 This year I am taking on the challenges in **Clojure**.
 
-```clojure
-(->>
- (s/split day-3-input #"do")
- (filter #(not (s/starts-with? % "n't")))
- (apply str)
- (re-seq #"mul\((\d+),(\d+)\)")
- (map #(* (str->int (nth % 1)) (str->int (nth % 2))))
- (apply +)) ; correct!
-```
-
 To use, add a `profiles.clj` file with the following data:
 
 ```clojure
@@ -32,9 +22,21 @@ solutions step by step with a REPL.
 
 ## Solutions
 
-1. [Day 1](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day1.clj)
-1. [Day 2](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day2.clj)
-1. [Day 3](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day3.clj)
+- [Day 1](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day1.clj)
+- [Day 2](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day2.clj)
+- [Day 3](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day3.clj)
+
+```clojure
+(->>
+ (s/split day-3-input #"do")
+ (filter #(not (s/starts-with? % "n't")))
+ (apply str)
+ (re-seq #"mul\((\d+),(\d+)\)")
+ (map #(* (str->int (nth % 1)) (str->int (nth % 2))))
+ (apply +)) ; correct!
+```
+
+- [Day 4](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day4.clj) (stuck!)
 
 ## License
 
