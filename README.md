@@ -5,6 +5,16 @@
 
 This year I am taking on the challenges in **Clojure**.
 
+```clojure
+(->>
+ (s/split day-3-input #"do")
+ (filter #(not (s/starts-with? % "n't")))
+ (apply str)
+ (re-seq #"mul\((\d+),(\d+)\)")
+ (map #(* (str->int (nth % 1)) (str->int (nth % 2))))
+ (apply +)) ; correct!
+```
+
 To use, add a `profiles.clj` file with the following data:
 
 ```clojure
