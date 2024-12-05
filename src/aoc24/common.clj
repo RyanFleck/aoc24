@@ -10,28 +10,33 @@
   ;; Hint on setting session here: https://medium.com/@wujido20/advent-of-code-2022-input-loading-made-easy-b38153d6ca2d
 
   ;; Step 1: Make request with token.
-  (when (env :aoc-session)
+  (if (env :aoc-session) ; (= 128 (count (env :aoc-session)))
     (let [token (env :aoc-session)
-          url (str "https://adventofcode.com/2024/day/" day "/input")]
-      (println (str "Using token '" (subs token 0 10) "..."))
+          year (int 2024)
+          url (str "https://adventofcode.com/" year "/day/" day "/input")]
+
       (let [filename (str "resources/day" day ".txt")
             res (client/get url {:headers {:cookie (str "session=" token)}})]
 
       ;; Step 2: Write data to correct filename.
         (spit filename (:body res))
-        (println (str "Wrote body to " filename))))))
+        (println (str "Wrote body to " filename))))
 
+    ;; Freak out if no token.
+    (throw (Exception. "Missing session token, add the environment variable :aoc-session to profiles.clj"))))
+
+(count (env :aoc-session))
 ;; Example:
 ;; (download-puzzle-data 1)
 
 (defn get-input-data
   "Returns the puzzle data for a given day, and downloads it if it doesn't exist."
   [^Integer day]
-  (when (env :aoc-session)
-    (let [filename (str "resources/day" day ".txt")]
+  (let [filename (str "resources/day" day ".txt")]
 
-      (when (not (.exists (io/file filename)))
-        (println "Data for day " day " does not exist, downloading...")
-        (download-puzzle-data day))
+    (when (not (.exists (io/file filename)))
+      (println "Data for day " day " does not exist, downloading...")
+      (download-puzzle-data day))
 
-      (slurp filename))))
+    ;; Assuming all goes well, load the text file into memory.
+    (slurp filename)))
