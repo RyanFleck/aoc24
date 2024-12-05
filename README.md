@@ -36,7 +36,22 @@ solutions step by step with a REPL.
  (apply +)) ; correct!
 ```
 
-- [Day 4](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day4.clj) (stuck!)
+- [Day 4](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day4.clj) (just part one)
+
+```clojure
+(defn day-4-answer [input]
+  (let [rows (get-rows input)
+        cols (get-columns input)
+        diag-se (get-diagonal-rows-se input)
+        diag-sw (get-diagonal-rows-sw input)
+        combined (flatten (apply merge rows cols diag-se diag-sw))
+        reversed (map #(apply str (reverse %)) combined)
+        all (flatten (apply merge combined reversed))]
+
+    (count (re-seq #"XMAS" (s/join "-" all)))))
+```
+
+- [Day 5](https://github.com/RyanFleck/aoc24/blob/master/src/aoc24/day5.clj)
 
 ## License
 

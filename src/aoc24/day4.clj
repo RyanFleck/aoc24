@@ -15,13 +15,17 @@ SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX"))
 
-(def data (common/get-input-data 4))
+(comment
+  (def data (common/get-input-data 4)))
+
+;; First attempt: I bet if I can get all the rows, columns, and
+;; diagonals from this thing, I'll be able to combine them all and
+;; their reversed versions to seach for "XMAS" in one go. Lots of
+;; little functions though - I bet there's a better way to think about
+;; this puzzle.
 
 (defn get-rows [input]
   (map s/trim (s/split-lines input)))
-
-(defn reverse-str [str-list]
-  (map s/reverse str-list))
 
 (defn get-column [str-list nth-col]
   (apply str (map #(nth % nth-col) str-list)))
@@ -82,6 +86,7 @@ MXMXAXMASX"))
   (diagonal-left-down-coords [9 -9]) ; ((9 -9) (8 -8) (7 -7) (6 -6) (5 -5) (4 -4) (3 -3) (2 -2) (1 -1) (0 0))
   (diagonal-left-down-coords [9 0]) ; ((9 0) (8 1) (7 2) (6 3) (5 4) (4 5) (3 6) (2 7) (1 8) (0 9))
   )
+
 (defn filter-for-real-coords [set height width]
   (->> set
        (filter #(and (>= (first %) 0) (>= (second %) 0)))
@@ -105,7 +110,7 @@ MXMXAXMASX"))
 ;; The cider inspector is awesome.
   (getchar sample-rows '(0 1))
 
-;; Here's how we can get the diagonal-right-down rows.
+;; Here's how we can get the diagonal-right-down rows. (SE)
   (->>
    (for [y (range -9 10)]
      (filter-for-real-coords
@@ -119,6 +124,7 @@ MXMXAXMASX"))
     (filter-for-real-coords
      (diagonal-left-down-coords [(- (count (first sample-rows)) 1) y]) 10 10))
 
+  ;; Left-down: (SW)
   (->>
    (for [y (range -9 10)] ; -9 to 9 inclusive
      (filter-for-real-coords
@@ -126,7 +132,7 @@ MXMXAXMASX"))
    (filter seq?)
    (map (fn [row] (apply str (map #(getchar sample-rows %) row)))))
 
-;; End of comment
+  ;; End of comment
   )
 
 (defn get-diagonal-rows-se [input]
@@ -164,11 +170,14 @@ MXMXAXMASX"))
         reversed (map #(apply str (reverse %)) combined)
         all (flatten (apply merge combined reversed))]
 
+    ;; Combine into one long string (with separators) and count "XMAS"
     (count (re-seq #"XMAS" (s/join "-" all)))))
 
 (comment
   ;; Part 1
-  (day-4-answer data) ; correct. Whew!
+  (day-4-answer data) ; correct. First try. Way way too long. Whew!
+  (time (day-4-answer data)) ; 391.9874 msecs
+
   )
 
 ;; Ah crap I built this all wrong if this was supposed to help in solving part two. RIP!
